@@ -23,3 +23,11 @@ let fresh_var used_vars : string =
   ADD FUNCTIONS BELOW
 *)
 
+let rec fv term = 
+	match term with
+	|Variable v -> StringSet.add v StringSet.empty
+	|Abstraction (v,t) -> StringSet.diff (fv t) fv(v)
+	|Application (t1,t2) -> StringSet.union (fv t1) (fv t2)
+
+
+
