@@ -39,6 +39,24 @@ let s3 = "
 ((\\id1.(t1 id1)) (\\id2.(t1 t2)))
 "
 
+
+let s4 = "
+let tru = (\\t.(\\f.t)) in
+let fls = (\\t.(\\f.f)) in
+let or = (\\b.(\\c. ((b tru) c))) in
+((or tru) fls)
+"
+
+let s5 = "
+let tru = (\\t.(\\f.t)) in
+let fls = (\\t.(\\f.f)) in
+let and = (\\b.(\\c. ((b c) fls))) in
+let not = (\\b. ((b fls) tru)) in
+(not ((and fls) tru))
+"
+
+
+
 let () =
   printf "\nEvaluating:\n%s\nin cbn semantics:\n\n" s1;
   ignore (evaluate ~verbose:true reduce_cbn (parse s1));
@@ -49,6 +67,20 @@ let () =
   ignore (evaluate ~verbose:true reduce_cbv (parse s3));
   printf "\n\n Testing on:\n%s\nReduce cbn\n\n" s3;
   ignore (evaluate ~verbose:true reduce_cbn (parse s3));
+
+
+  printf "\n\n our test";
+    (* Test for s4 *)
+  printf "\n\nEvaluating:\n%s\nin cbn semantics:\n\n" s4;
+  ignore (evaluate ~verbose:true reduce_cbn (parse s4));
+  printf "\n\nEvaluating:\n%s\nin cbv semantics:\n\n" s4;
+  ignore (evaluate ~verbose:true reduce_cbv (parse s4));
+
+  (* Test for s5 *)
+  printf "\n\nEvaluating:\n%s\nin cbn semantics:\n\n" s5;
+  ignore (evaluate ~verbose:true reduce_cbn (parse s5));
+  printf "\n\nEvaluating:\n%s\nin cbv semantics:\n\n" s5;
+  ignore (evaluate ~verbose:true reduce_cbv (parse s5));
   
   (*Format Term Conv Tests*)
   

@@ -70,3 +70,6 @@ let rec format_term_conv = function
 	| Abstraction ( s, Application( t1, t2 ) ) 	-> "\\" ^ s ^ "." ^ "(" ^ (format_term_conv t1) ^ " " ^ (format_term_conv t2) ^ ")"
 	| Abstraction ( s, t1 ) 	-> "\\" ^ s ^ "." ^ (format_term_conv t1)
 	| Application ( t1, t2 ) 	-> (format_term_conv t1) ^ " " ^ (format_term_conv t2)
+
+
+
